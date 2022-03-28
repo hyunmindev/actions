@@ -1,7 +1,7 @@
 name: CI
 on: pull_request
 jobs:
-  test:
+  job1:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -9,3 +9,8 @@ jobs:
         with:
           node-version: '16'
       - run: node -v
+  job2:
+    runs-on: ubuntu-latest
+    steps:
+      - run: node -v
+  
