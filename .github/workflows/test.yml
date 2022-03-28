@@ -1,17 +1,13 @@
 name: CI
 on: pull_request
 jobs:
-  job1:
+  유닛_테스트:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
+          cache: 'npm'
       - run: npm ci
-  job2:
-    needs: job1
-    runs-on: ubuntu-latest
-    steps:
       - run: npm test -- --watchAll=false
-  
