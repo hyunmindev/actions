@@ -10,6 +10,7 @@ jobs:
           node-version: '14'
       - run: node -v
   job2:
+    needs: job1
     runs-on: ubuntu-latest
     steps:
       - run: node -v
