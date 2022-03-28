@@ -10,9 +10,4 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '16'
-      - uses: cypress-io/github-action@v2
-        with:
-          build: yarn run build
-          start: yarn start
-      - run: yarn install --immutable --immutable-cache --check-cache
-      - run: yarn test
+      - run: node --v
