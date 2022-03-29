@@ -1,23 +1,14 @@
 name: CI
 on: pull_request
 jobs:
-  unit_test:
+  test1:
     runs-on: ubuntu-latest
     steps:
-      - name: 체크아웃
-        uses: actions/checkout@v3
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-          cache: 'npm'
-      - name: 설치
-        run: npm ci
-      - run: npm test -- --watchAll=false
-  test:
+      - run: npm ci
+      - run: git branch
+  test2:
     runs-on: ubuntu-latest
     steps:
-      - name: 체크아웃
-        uses: actions/checkout@v3
-      - name: 설치
-        run: npm ci
+      - uses: actions/checkout@v3
+      - run: npm ci
       - run: git branch
