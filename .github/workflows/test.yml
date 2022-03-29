@@ -13,3 +13,11 @@ jobs:
       - name: 설치
         run: npm ci
       - run: npm test -- --watchAll=false
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 체크아웃
+        uses: actions/checkout@v3
+      - name: 설치
+        run: npm ci
+      - run: git branch
