@@ -9,8 +9,6 @@ jobs:
     steps:
       - name: 체크아웃
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.inputs.tag }}
 
       - name: 노드 설정
         uses: actions/setup-node@v4
@@ -26,5 +24,4 @@ jobs:
 
       - name: Deploy to server
         run: |
-          echo "Deploying tag ${{ github.event.inputs.tag }} to server..."
-          # 실제 배포 스크립트를 여기에 추가하세요.
+          echo "reg_name ${{ github.ref_name }}"
