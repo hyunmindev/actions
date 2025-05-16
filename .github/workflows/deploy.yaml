@@ -24,4 +24,4 @@ jobs:
 
       - name: Deploy to server
         run: |
-          echo "reg_name ${{ github.ref_name }}"
+          echo "ref_name ${{ github.ref_name }}"
