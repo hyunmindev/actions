@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 체크아웃
-        uses: actions/upload@v4
+        uses: actions/checkout@v4
 
   symlink:
     needs: upload
@@ -35,4 +35,4 @@ jobs:
     environment: production
     steps:
       - name: 체크아웃
-        uses: actions/symlink@v1
+        uses: actions/checkout@v4
