@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: 체크아웃
@@ -22,6 +22,17 @@ jobs:
       - name: 빌드
         run: npm run build
 
-      - name: Deploy to server
-        run: |
-          echo "ref_name ${{ github.ref_name }}"
+  upload:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: 체크아웃
+        uses: actions/upload@v4
+
+  symlink:
+    needs: upload
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: 체크아웃
+        uses: actions/symlink@v1
