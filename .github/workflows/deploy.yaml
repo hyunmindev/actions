@@ -33,10 +33,7 @@ jobs:
 
   symlink:
     needs: upload
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/workflows/symlink.yaml
-        with:
-          tag: ${{ github.ref_name }}
-          phase: ${{ inputs.phase }}
+    uses: ./.github/workflows/symlink.yaml
+    with:
+      tag: ${{ github.ref_name }}
+      phase: ${{ inputs.phase }}
