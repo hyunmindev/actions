@@ -1,35 +1,41 @@
-name: 배포
+name: deploy
 
 on:
   workflow_dispatch:
     inputs:
-      tag:
-        description: "실행할 Git 태그 (예: v1.0.0)"
+      phase:
+        description: ""
         required: true
-        type: string
+        type: choice
+        options:
+          - sandbox
+          - beta
+          - production
+        default: sandbox
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: 체크아웃
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.inputs.tag }}
-
-      - name: 노드 설정
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: npm
+      - run: npm ci
+      - run: npm run build
 
-      - name: 의존성 설치
-        run: npm ci
+  upload:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
 
-      - name: 빌드
-        run: npm run build
-
-      - name: Deploy to server
-        run: |
-          echo "Deploying tag ${{ github.event.inputs.tag }} to server..."
-          # 실제 배포 스크립트를 여기에 추가하세요.
+  symlink:
+    needs: upload
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./.github/workflows/symlink.yaml
+        with:
+          tag: ${{ github.ref_name }}
+          phase: ${{ inputs.phase }}

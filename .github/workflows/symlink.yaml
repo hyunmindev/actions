@@ -1,0 +1,32 @@
+name: symlink
+
+on:
+  workflow_dispatch:
+    inputs:
+      phase:
+        description: ""
+        required: true
+        type: choice
+        options:
+          - sandbox
+          - beta
+          - production
+        default: sandbox
+
+  workflow_call:
+    inputs:
+      tag:
+        type: string
+        required: true
+      phase:
+        type: string
+        required: true
+
+jobs:
+  symlink:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.phase }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo ${{ inputs.tag }}
+      - run: echo ${{ inputs.phase }}
